@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero p-5 text-center mb-4">
+  <h1 class="display-5 fw-bold">Book a doctor in a few clicks</h1>
+  <p class="lead">Search doctors by name or specialization, pick a date and time slot, and track your appointment status online.</p>
+  {% if not session.user_id %}
+    <a class="btn btn-light btn-lg me-2" href="{{ url_for('register') }}">Get Started</a>
+    <a class="btn btn-outline-light btn-lg" href="{{ url_for('login') }}">Login</a>
+  {% else %}
+    <a class="btn btn-light btn-lg" href="{{ url_for('dashboard') }}">Go to Dashboard</a>
+  {% endif %}
+</div>
+<div class="row text-center g-3">
+  <div class="col-md-4"><div class="card p-4 h-100"><h5>For Patients</h5><p class="mb-0">Register, find doctors, book and cancel appointments.</p></div></div>
+  <div class="col-md-4"><div class="card p-4 h-100"><h5>For Doctors</h5><p class="mb-0">See requests and approve, reject or complete them.</p></div></div>
+  <div class="col-md-4"><div class="card p-4 h-100"><h5>For Admin</h5><p class="mb-0">Manage doctors and monitor all appointments.</p></div></div>
+</div>
+{% endblock %}

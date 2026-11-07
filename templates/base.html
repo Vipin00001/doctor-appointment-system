@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Doctor Appointment System{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">+ MediBook</a>
+    <div class="ms-auto d-flex align-items-center gap-2 text-white">
+      {% if session.user_id %}
+        <span class="small">{{ session.name }} ({{ session.role }})</span>
+        <a class="btn btn-light btn-sm" href="{{ url_for('dashboard') }}">Dashboard</a>
+        {% if session.role == 'patient' %}
+          <a class="btn btn-outline-light btn-sm" href="{{ url_for('doctors') }}">Find Doctors</a>
+        {% endif %}
+        <a class="btn btn-outline-light btn-sm" href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+        <a class="btn btn-light btn-sm" href="{{ url_for('login') }}">Login</a>
+        <a class="btn btn-outline-light btn-sm" href="{{ url_for('register') }}">Register</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+<main class="container my-4">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="text-center py-4">Doctor Appointment Booking System &middot; MCA Final Year Project</footer>
+</body>
+</html>

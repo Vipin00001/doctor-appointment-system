@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Book Appointment{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-md-6">
+  <div class="card p-4">
+    <h3>Book with Dr. {{ doctor.name }}</h3>
+    <p class="text-muted">{{ doctor.specialization }} &middot; Fee &#8377;{{ doctor.fee }}</p>
+    <form method="post">
+      <div class="mb-3"><label class="form-label">Date</label>
+        <input type="date" name="appt_date" min="{{ today }}" value="{{ today }}" class="form-control" required></div>
+      <div class="mb-3"><label class="form-label">Time slot</label>
+        <select name="time_slot" class="form-select" required>
+          {% for s in slots %}<option value="{{ s }}">{{ s }}</option>{% endfor %}
+        </select></div>
+      <div class="mb-3"><label class="form-label">Reason / symptoms</label>
+        <textarea name="reason" class="form-control" rows="3" maxlength="300"></textarea></div>
+      <button class="btn btn-success w-100">Request Appointment</button>
+    </form>
+  </div>
+</div></div>
+{% endblock %}

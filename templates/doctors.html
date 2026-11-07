@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Find Doctors{% endblock %}
+{% block content %}
+<h3 class="mb-3">Find a Doctor</h3>
+<form class="row g-2 mb-4" method="get">
+  <div class="col-md-8"><input name="q" value="{{ q }}" class="form-control" placeholder="Search by name or specialization (e.g. Cardiologist)"></div>
+  <div class="col-md-4"><button class="btn btn-primary">Search</button>
+    <a href="{{ url_for('doctors') }}" class="btn btn-outline-secondary">Reset</a></div>
+</form>
+<div class="row g-3">
+  {% for d in doctors %}
+  <div class="col-md-4">
+    <div class="card h-100 p-3">
+      <h5 class="mb-1">Dr. {{ d.name }}</h5>
+      <div class="text-primary fw-semibold">{{ d.specialization }}</div>
+      <div class="small text-muted">{{ d.qualification }} &middot; {{ d.experience }} yrs experience</div>
+      <div class="my-2">Fee: <strong>&#8377;{{ d.fee }}</strong></div>
+      <a class="btn btn-success mt-auto" href="{{ url_for('book', doctor_id=d.id) }}">Book Appointment</a>
+    </div>
+  </div>
+  {% else %}
+  <p class="text-muted">No doctors found.</p>
+  {% endfor %}
+</div>
+{% endblock %}

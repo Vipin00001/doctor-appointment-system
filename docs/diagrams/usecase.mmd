@@ -1,0 +1,22 @@
+flowchart TB
+    subgraph PS["Patient"]
+      direction LR
+      P([Patient]) --> U1(Register / Login)
+      P --> U2(Search doctors)
+      P --> U3(Book appointment)
+      P --> U4(View / Cancel appointment)
+    end
+    subgraph DS["Doctor"]
+      direction LR
+      D([Doctor]) --> U5(Login)
+      D --> U6(View requests)
+      D --> U7(Approve / Reject)
+      D --> U8(Mark completed)
+    end
+    subgraph AS["Admin"]
+      direction LR
+      A([Admin]) --> U9(Login)
+      A --> U10(Add / Remove doctor)
+      A --> U11(View statistics and appointments)
+    end
+    PS ~~~ DS ~~~ AS

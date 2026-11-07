@@ -1,0 +1,6 @@
+flowchart LR
+    B[Web Browser<br/>HTML + CSS + Bootstrap] -->|HTTP request| F[Flask Application<br/>Routes, Validation, Sessions]
+    F -->|HTML response| B
+    F -->|SQL queries| DB[(SQLite Database<br/>users, doctors, appointments)]
+    DB --> F
+    F --- T[Jinja2 Templates]

@@ -1,0 +1,32 @@
+erDiagram
+    direction LR
+    USERS ||--o| DOCTORS : "is a"
+    USERS ||--o{ APPOINTMENTS : "books (patient)"
+    DOCTORS ||--o{ APPOINTMENTS : "receives"
+    USERS {
+        int id PK
+        string name
+        string email UK
+        string password_hash
+        string phone
+        string role
+        datetime created_at
+    }
+    DOCTORS {
+        int id PK
+        int user_id FK
+        string specialization
+        string qualification
+        int experience
+        int fee
+    }
+    APPOINTMENTS {
+        int id PK
+        int patient_id FK
+        int doctor_id FK
+        date appt_date
+        string time_slot
+        string reason
+        string status
+        datetime created_at
+    }

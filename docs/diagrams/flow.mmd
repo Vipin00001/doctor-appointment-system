@@ -1,0 +1,15 @@
+flowchart TD
+    S([Start]) --> L[Patient logs in]
+    L --> F[Search doctor]
+    F --> B[Select date and time slot]
+    B --> V{Slot free and<br/>date valid?}
+    V -- No --> E[Show error message] --> B
+    V -- Yes --> R[Save appointment as Pending]
+    R --> DA{Doctor decision}
+    DA -- Approve --> AP[Status = Approved]
+    DA -- Reject --> RJ[Status = Rejected]
+    AP --> C[Visit doctor, mark Completed]
+    AP --> CN[Patient may cancel]
+    C --> End([End])
+    RJ --> End
+    CN --> End

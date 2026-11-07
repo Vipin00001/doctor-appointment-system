@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h3 class="mb-3">Admin Dashboard</h3>
+<div class="row g-3 mb-4 text-center">
+  {% for label, key in [('Patients','patients'),('Doctors','doctors'),('Appointments','appointments'),('Pending','pending')] %}
+  <div class="col-6 col-md-3"><div class="card p-3"><div class="fs-2 fw-bold text-primary">{{ stats[key] }}</div><div class="text-muted">{{ label }}</div></div></div>
+  {% endfor %}
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+  <h5 class="mb-0">Doctors</h5>
+  <a class="btn btn-primary btn-sm" href="{{ url_for('add_doctor') }}">+ Add Doctor</a>
+</div>
+<div class="card mb-4"><div class="table-responsive">
+<table class="table align-middle mb-0">
+  <thead class="table-light"><tr><th>Name</th><th>Email</th><th>Specialization</th><th>Qualification</th><th>Exp</th><th>Fee</th><th></th></tr></thead>
+  <tbody>
+  {% for d in doctors %}
+    <tr><td>Dr. {{ d.name }}</td><td>{{ d.email }}</td><td>{{ d.specialization }}</td><td>{{ d.qualification }}</td>
+      <td>{{ d.experience }} yrs</td><td>&#8377;{{ d.fee }}</td>
+      <td><form method="post" action="{{ url_for('delete_doctor', doctor_id=d.id) }}" onsubmit="return confirm('Remove this doctor and all of their appointments?')">
+        <button class="btn btn-outline-danger btn-sm">Remove</button></form></td></tr>
+  {% else %}
+    <tr><td colspan="7" class="text-center text-muted py-3">No doctors added yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div></div>
+
+<h5>Recent Appointments</h5>
+<div class="card"><div class="table-responsive">
+<table class="table align-middle mb-0">
+  <thead class="table-light"><tr><th>#</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Time</th><th>Status</th></tr></thead>
+  <tbody>
+  {% for a in appointments %}
+    <tr><td>{{ a.id }}</td><td>{{ a.patient_name }}</td><td>Dr. {{ a.doctor_name }}</td><td>{{ a.appt_date }}</td><td>{{ a.time_slot }}</td>
+      <td>{% with status=a.status %}{% include '_status.html' %}{% endwith %}</td></tr>
+  {% else %}
+    <tr><td colspan="6" class="text-center text-muted py-3">No appointments yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div></div>
+{% endblock %}

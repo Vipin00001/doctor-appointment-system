@@ -1,0 +1,15 @@
+flowchart TB
+    P([Patient]) --> P1((1.0 Login))
+    D([Doctor]) --> P1
+    A([Admin]) --> P1
+    P1 <--> D1[(Users)]
+    A --> P2((2.0 Manage Doctors))
+    P2 <--> D1
+    P2 <--> D2[(Doctors)]
+    P --> P3((3.0 Search and Book))
+    P3 <--> D2
+    P3 <--> D3[(Appointments)]
+    D --> P4((4.0 Handle Requests))
+    P4 <--> D3
+    A --> P5((5.0 Reports))
+    P5 --> D3

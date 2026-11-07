@@ -1,0 +1,7 @@
+flowchart LR
+    P([Patient]) -->|registration, login, booking request| S((Doctor Appointment<br/>System))
+    S -->|doctor list, appointment status| P
+    D([Doctor]) -->|login, approve / reject| S
+    S -->|appointment requests| D
+    A([Admin]) -->|doctor details, remove doctor| S
+    S -->|statistics, all appointments| A
